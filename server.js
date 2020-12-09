@@ -1,6 +1,7 @@
 // Requiring necessary npm packages
 const express = require('express');
 const session = require('express-session');
+// const dotenv = require('dotenv').config();
 // Requiring passport as we've configured it
 const passport = require('./config/passport');
 
@@ -31,6 +32,7 @@ db.sequelize.sync().then(() => {
         '==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.',
         PORT,
         PORT,
+        console.log(process.env),
     );
   });
 });
