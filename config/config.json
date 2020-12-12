@@ -2,7 +2,7 @@
     "development": {
         "username": "root",
         "password": "rootroot",
-        "database": "classicmodels",
+        "database": "mygamespaceDB",
         "host": "127.0.0.1",
         "dialect": "mysql"
     },
