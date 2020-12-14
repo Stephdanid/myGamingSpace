@@ -33,7 +33,7 @@
     "cross-env": "^5.2.0",
     "eslint": "^7.15.0",
     "eslint-config-google": "^0.14.0",
-    "mocha": "^5.2.0",
+    "mocha": "^8.2.1",
     "prettier": "^1.13.7"
   }
 }
