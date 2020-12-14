@@ -9,30 +9,30 @@ passport.use(
     new LocalStrategy(
         // Our user will sign in using an email, rather than a "username"
         {
-          usernameField: 'email',
+            usernameField: 'email',
         },
         (email, password, done) => {
-          // When a user tries to sign in this code runs
-          db.User.findOne({
-            where: {
-              email: email,
-            },
-          }).then((dbUser) => {
+            // When a user tries to sign in this code runs
+            db.User.findOne({
+                where: {
+                    email: email,
+                },
+            }).then((dbUser) => {
             // If there's no user with the given email
-            if (!dbUser) {
-              return done(null, false, {
-                message: 'Incorrect email.',
-              });
-            } else if (!dbUser.validPassword(password)) {
-              // If there is a user with the given email,
-              // but the password the user gives us is incorrect
-              return done(null, false, {
-                message: 'Incorrect password.',
-              });
-            }
-            // If none of the above, return the user
-            return done(null, dbUser);
-          });
+                if (!dbUser) {
+                    return done(null, false, {
+                        message: 'Incorrect email.',
+                    });
+                } else if (!dbUser.validPassword(password)) {
+                    // If there is a user with the given email,
+                    // but the password the user gives us is incorrect
+                    return done(null, false, {
+                        message: 'Incorrect password.',
+                    });
+                }
+                // If none of the above, return the user
+                return done(null, dbUser);
+            });
         },
     ),
 );
@@ -41,11 +41,11 @@ passport.use(
 // Sequelize needs to serialize and deserialize the user
 // Just consider this part boilerplate needed to make it all work
 passport.serializeUser((user, cb) => {
-  cb(null, user);
+    cb(null, user);
 });
 
 passport.deserializeUser((obj, cb) => {
-  cb(null, obj);
+    cb(null, obj);
 });
 
 // Exporting our configured passport
