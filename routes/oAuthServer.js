@@ -1,10 +1,12 @@
 const fetch = require(`node-fetch`);
 // gameSearch();
 // Example POST method implementation:
-async function postData(url = '',
+async function postData(
+    url = '',
     data = {},
     additionalHeaders = {},
-    defaultContentType = 'application/json') {
+    defaultContentType = 'application/json',
+) {
     // Default options are marked with *
     const response = await fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -27,22 +29,24 @@ function gameSearch(bodyParamSearch) {
         client_id: process.env.CLIENT_ID_TWITCH,
         client_secret: process.env.CLIENT_SECRET_TWITCH,
         grant_type: `client_credentials`,
-    })
-        .then((data) => {
-            // console.log(data); // JSON data parsed by `data.json()` call
-            bodyParamSearch =`"dark souls"`;
-            return postData(`https://api.igdb.com/v4/games`,
-                'fields *; search ' + bodyParamSearch +
-                '; limit 2;', {
-                    'Client-ID': process.env.CLIENT_ID_TWITCH,
-                    'Authorization': `Bearer ` + data.access_token,
-                }, 'text/plain');
-            // The example below searches for “Sonic the Hedgehog” which
-            // will find the Character Sonic,
-            // the collection Sonic the Hedgehog. And of course
-            // also several games with names containing Sonic the Hedgehog.
-            // "fields *; search "sonic the hedgehog"; limit 50;"
-        });
+    }).then((data) => {
+    // console.log(data); // JSON data parsed by `data.json()` call
+        bodyParamSearch = `"cyberpunk"`;
+        return postData(
+            `https://api.igdb.com/v4/games`,
+            'fields *; search ' + bodyParamSearch + '; limit 2;',
+            {
+                'Client-ID': process.env.CLIENT_ID_TWITCH,
+                'Authorization': `Bearer ` + data.access_token,
+            },
+            'text/plain',
+        );
+    // The example below searches for “Sonic the Hedgehog” which
+    // will find the Character Sonic,
+    // the collection Sonic the Hedgehog. And of course
+    // also several games with names containing Sonic the Hedgehog.
+    // "fields *; search "sonic the hedgehog"; limit 50;"
+    });
     // .then(gameData => {
     //     const [gameObject] = gameData
     //     console.log('Rating for this game is ' +
@@ -79,7 +83,6 @@ function gameSearch(bodyParamSearch) {
     //     // let rScreenshots = gameObject.screenshots;
     //     // let rSummary = gameObject.summary;
     //     // let rUrl = gameObject.url;
-
     //     // console.log(rName)
     //     // console.log(rSummary)
     // })
