@@ -7,6 +7,7 @@ async function postData(
   additionalHeaders = {},
   defaultContentType = "application/json"
 ) {
+<<<<<<< HEAD
   // Default options are marked with *
   const response = await fetch(url, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -22,6 +23,23 @@ async function postData(
   });
   return response.json();
   // parses JSON response into native JavaScript objects
+=======
+    // Default options are marked with *
+    const response = await fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        headers: {
+            ...additionalHeaders,
+            'Content-Type': defaultContentType,
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: defaultContentType === 'application/json' ?
+            JSON.stringify(data) : data,
+        // body data type must match "Content-Type" header
+    });
+    return response.json();
+    // parses JSON response into native JavaScript objects
+>>>>>>> main
 }
 function gameSearch(bodyParamSearch) {
   // console.log('test')

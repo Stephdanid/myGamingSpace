@@ -1,7 +1,13 @@
 // Requiring our models and passport as we've configured it
+<<<<<<< HEAD
 const db = require("../models");
 const passport = require("../config/passport");
 const gameSearch = require("./oAuthServer.js");
+=======
+const db = require('../models');
+const passport = require('../config/passport');
+const gameSearch = require('./oAuthServer.js');
+>>>>>>> main
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -13,6 +19,7 @@ module.exports = function(app) {
       email: req.user.email,
       id: req.user.id,
     });
+<<<<<<< HEAD
   });
 
   // Route for signing up a user. The user's password is
@@ -32,6 +39,25 @@ module.exports = function(app) {
         res.status(401).json(err);
       });
   });
+=======
+    // Route for signing up a user. The user's password is
+    // automatically hashed and stored securely thanks to
+    // how we configured our Sequelize User Model.
+    // If the user is created successfully, proceed to log the user in,
+    // otherwise send back an error
+    app.post('/api/signup', (req, res) => {
+        db.User.create({
+            email: req.body.email,
+            password: req.body.password,
+        })
+            .then(() => {
+                res.redirect(307, '/api/login');
+            })
+            .catch((err) => {
+                res.status(401).json(err);
+            });
+    });
+>>>>>>> main
 
   // Route for logging user out
   app.get("/logout", (req, res) => {
@@ -60,5 +86,27 @@ module.exports = function(app) {
       console.log(gameData);
       res.render("gameSearch", { searchedGamesData: gameData });
     });
+<<<<<<< HEAD
   });
+=======
+    app.get('/api/games/:game', (req, res) => {
+        gameSearch(req.params.game).then((gameData) => res.json(gameData));
+    });
+    app.post('/members', function(req, res) {
+        console.log(req.body);
+        // create takes an argument of an object describing
+        // the item we want to
+        // insert into our table. In this case we just we pass
+        // in an object with a text
+        // and complete property (req.body)
+        db.Wlist.create({
+            text: req.body.text,
+            complete: req.body.complete,
+        }).then(function(dbWlist) {
+            // We have access to the new Wlist as an argument
+            // inside of the callback function
+            res.json(dbWlist);
+        });
+    });
+>>>>>>> main
 };
