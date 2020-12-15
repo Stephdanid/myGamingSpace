@@ -30,8 +30,18 @@ function gameSearch(bodyParamSearch) {
         client_secret: process.env.CLIENT_SECRET_TWITCH,
         grant_type: `client_credentials`,
     }).then((data) => {
+<<<<<<< HEAD
         // console.log(data); // JSON data parsed by `data.json()` call
         bodyParamSearch = `"${bodyParamSearch}"`;
+=======
+<<<<<<< HEAD
+        // console.log(data); // JSON data parsed by `data.json()` call
+        bodyParamSearch = `""`;
+=======
+    // console.log(data); // JSON data parsed by `data.json()` call
+        bodyParamSearch = `"${bodyParamSearch}"`;
+>>>>>>> 50fc50db11250084bfcd305425b40c6be7f58394
+>>>>>>> main
         return postData(
             `https://api.igdb.com/v4/games`,
             'fields *; search ' + bodyParamSearch + '; limit 5;', {
