@@ -1,7 +1,7 @@
 // Requiring our models and passport as we've configured it
 const db = require('../models');
 const passport = require('../config/passport');
-const gameSearch = require('./oAuthServer.js');
+// const gameSearch = require('./oAuthServer.js');
 
 module.exports = function(app) {
     // Using the passport.authenticate middleware with our local strategy.
@@ -53,7 +53,7 @@ module.exports = function(app) {
             });
         }
     });
-    
+
     app.post('/wishlist', function(req, res) {
         console.log(req.body);
         // create takes an argument of an object describing
@@ -64,22 +64,21 @@ module.exports = function(app) {
         db.Wlist.create({
             name: req.body.name,
             summary: req.body.summary,
+            id: req.body.id,
+            UserId: req.user.id,
         }).then(function(dbWlist) {
             // We have access to the new Wlist as an argument
             // inside of the callback function
             res.json(dbWlist);
         });
     });
-    app.get('/api/games/:game', (req, res) => {
-        gameSearch(req.params.game).then((gameData) => {
-            console.log(gameData);
-            res.render('gameSearch', {searchedGamesData: gameData});
-        });
-    });
 
-    app.get('/api/Wlist/', function(req, res) {
-        db.Wlist.findAll({}).then(function(dbPost) {
-            res.json(dbPost);
+
+    app.get('/wishlist', function(req, res) {
+        db.Wlist.findAll({where: {UserId: req.user.id}},
+            {raw: true}).then(function(dbPost) {
+            console.table(dbPost);
+            res.render('members', {myGamesList: dbPost});
         });
     });
 };

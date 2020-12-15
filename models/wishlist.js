@@ -12,11 +12,11 @@ module.exports = function(sequelize, DataTypes) {
     //     allowNull: false
     // },
     name: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING,
         allowNull: false
     },
     summary: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
     }
     // url: {
     //     type: DataTypes.STRING,
