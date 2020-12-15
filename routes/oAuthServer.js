@@ -16,11 +16,10 @@ async function postData(
             'Content-Type': defaultContentType,
             // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body:
+        body: defa        body:
       defaultContentType === 'application/json' ? JSON.stringify(data) : data,
     // body data type must match "Content-Type" header
-    });
-    return response.json();
+sponse.json();
     // parses JSON response into native JavaScript objects
 }
 function gameSearch(bodyParamSearch) {
@@ -73,18 +72,6 @@ function gameSearch(bodyParamSearch) {
     //     console.log('Check out the website for more information! ' +
     //      gameObject.url);
     //     console.log('========END OF OBJECT DATA=======');
-    //     //variables
-    //     // let rRating = gameObject.aggregated_rating;
-    //     // let rFirstrelease = gameObject.first_release_date;
-    //     // let rGamemodes = gameObject.game_modes;
-    //     // let rName = gameObject.name;
-    //     // let rPlatforms = gameObject.platforms;
-    //     // let rReleasedates = gameObject.release_dates;
-    //     // let rScreenshots = gameObject.screenshots;
-    //     // let rSummary = gameObject.summary;
-    //     // let rUrl = gameObject.url;
-    //     // console.log(rName)
-    //     // console.log(rSummary)
     // })
 }
 module.exports = gameSearch;
