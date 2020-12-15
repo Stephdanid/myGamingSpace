@@ -1,12 +1,36 @@
+<nav class="navbar navbar-light bg-light">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/logout">
+            Logout
+        </a>
+    </div>
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/members">
+            Profile
+        </a>
+    </div>
+    <div class="container-fluid">
+        <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchedGame">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <h2>Results</h2>
         <ul>
             {{#each searchedGamesData}}
-            <button type="submit" data-summary="{{summary}}" data-id="{{iddata-name="{{name}}" }}" class="btn btn-default">Add!</button>
+            <li>
+                <p>Name: {{name}}</p>
+                <p>About: {{summary}}</p>
+                <a href="{{url}}">Check out more about this game!</a>
+            </li>
+            
+            <button type="submit" data-summary="{{summary}}" data-id="{{iddata-name="{{name}}" }}" class="btn btn-default">Add to wishlist!</button>
             {{/each}}
         </ul>
     </div>
 </div>
 
-<script type="text/javascript" src="js/gameSearch.js"></script>
+<script type="text/javascript" src="/js/gameSearch.js"></script>

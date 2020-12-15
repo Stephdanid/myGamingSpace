@@ -53,9 +53,7 @@ module.exports = function(app) {
             });
         }
     });
-    app.get('/api/games/:game', (req, res) => {
-        gameSearch(req.params.game).then((gameData) => res.json(gameData));
-    });
+    
     app.post('/wishlist', function(req, res) {
         console.log(req.body);
         // create takes an argument of an object describing
@@ -70,6 +68,18 @@ module.exports = function(app) {
             // We have access to the new Wlist as an argument
             // inside of the callback function
             res.json(dbWlist);
+        });
+    });
+    app.get('/api/games/:game', (req, res) => {
+        gameSearch(req.params.game).then((gameData) => {
+            console.log(gameData);
+            res.render('gameSearch', {searchedGamesData: gameData});
+        });
+    });
+
+    app.get('/api/Wlist/', function(req, res) {
+        db.Wlist.findAll({}).then(function(dbPost) {
+            res.json(dbPost);
         });
     });
 };
