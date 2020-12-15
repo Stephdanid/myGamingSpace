@@ -16,9 +16,9 @@ async function postData(
             'Content-Type': defaultContentType,
             // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: defaultContentType === 'application/json' ?
-            JSON.stringify(data) : data,
-        // body data type must match "Content-Type" header
+        body:
+      defaultContentType === 'application/json' ? JSON.stringify(data) : data,
+    // body data type must match "Content-Type" header
     });
     return response.json();
     // parses JSON response into native JavaScript objects
@@ -31,8 +31,13 @@ function gameSearch(bodyParamSearch) {
         client_secret: process.env.CLIENT_SECRET_TWITCH,
         grant_type: `client_credentials`,
     }).then((data) => {
+<<<<<<< HEAD
         // console.log(data); // JSON data parsed by `data.json()` call
         bodyParamSearch = `""`;
+=======
+    // console.log(data); // JSON data parsed by `data.json()` call
+        bodyParamSearch = `"${bodyParamSearch}"`;
+>>>>>>> 50fc50db11250084bfcd305425b40c6be7f58394
         return postData(
             `https://api.igdb.com/v4/games`,
             'fields *; search ' + bodyParamSearch + '; limit 5;', {
