@@ -7,7 +7,6 @@ $(document).ready(() => {
         $('.member-name').text(data.email);
     });
 });
-
 // / listening for submit to search for a game
 $('form').on('submit', (event) => {
     event.preventDefault();

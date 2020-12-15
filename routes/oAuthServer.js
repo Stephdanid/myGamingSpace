@@ -16,9 +16,9 @@ async function postData(
             'Content-Type': defaultContentType,
             // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body:
-      defaultContentType === 'application/json' ? JSON.stringify(data) : data,
-    // body data type must match "Content-Type" header
+        body: defaultContentType === 'application/json' ?
+            JSON.stringify(data) : data,
+        // body data type must match "Content-Type" header
     });
     return response.json();
     // parses JSON response into native JavaScript objects
@@ -40,7 +40,12 @@ function gameSearch(bodyParamSearch) {
 >>>>>>> 50fc50db11250084bfcd305425b40c6be7f58394
         return postData(
             `https://api.igdb.com/v4/games`,
+<<<<<<< HEAD
             'fields *; search ' + bodyParamSearch + '; limit 5;', {
+=======
+            'fields *; search ' + bodyParamSearch + '; limit 10;',
+            {
+>>>>>>> 5bf57ae9686052df47d41f86b7ae98689bf815cb
                 'Client-ID': process.env.CLIENT_ID_TWITCH,
                 'Authorization': `Bearer ` + data.access_token,
             },
@@ -78,18 +83,6 @@ function gameSearch(bodyParamSearch) {
     //     console.log('Check out the website for more information! ' +
     //      gameObject.url);
     //     console.log('========END OF OBJECT DATA=======');
-    //     //variables
-    //     // let rRating = gameObject.aggregated_rating;
-    //     // let rFirstrelease = gameObject.first_release_date;
-    //     // let rGamemodes = gameObject.game_modes;
-    //     // let rName = gameObject.name;
-    //     // let rPlatforms = gameObject.platforms;
-    //     // let rReleasedates = gameObject.release_dates;
-    //     // let rScreenshots = gameObject.screenshots;
-    //     // let rSummary = gameObject.summary;
-    //     // let rUrl = gameObject.url;
-    //     // console.log(rName)
-    //     // console.log(rSummary)
     // })
 }
 module.exports = gameSearch;
