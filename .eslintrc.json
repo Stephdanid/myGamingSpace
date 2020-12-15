@@ -16,6 +16,7 @@
         
         "indent": ["warn", 4],
         
+        "no-invalid-this": "off",
         "react/react-in-jsx-scope": "off",
         "react/destructuring-assignment": "off"
      
