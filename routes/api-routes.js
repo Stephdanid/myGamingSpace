@@ -61,23 +61,29 @@ module.exports = function(app) {
       res.render("gameSearch", { searchedGamesData: gameData });
     });
   });
-  app.get("/api/games/:game", (req, res) => {
-    gameSearch(req.params.game).then((gameData) => res.json(gameData));
-  });
-  app.post("/members", function(req, res) {
-    console.log(req.body);
-    // create takes an argument of an object describing
-    // the item we want to
-    // insert into our table. In this case we just we pass
-    // in an object with a text
-    // and complete property (req.body)
-    db.Wlist.create({
-      text: req.body.text,
-      complete: req.body.complete,
-    }).then(function(dbWlist) {
-      // We have access to the new Wlist as an argument
-      // inside of the callback function
-      res.json(dbWlist);
+
+  app.get("/api/Wlist/", function(req, res) {
+    db.Wlist.findAll({}).then(function(dbPost) {
+      res.json(dbPost);
     });
   });
+
+  //   function addthing() {
+  //     app.post("/Wlist", function(req, res) {
+  //       console.log(req.body);
+  //       // create takes an argument of an object describing
+  //       // the item we want to
+  //       // insert into our table. In this case we just we pass
+  //       // in an object with a text
+  //       // and complete property (req.body)
+  //       db.Wlist.create({
+  //         text: req.body.text,
+  //         complete: req.body.complete,
+  //       }).then(function(dbWlist) {
+  //         // We have access to the new Wlist as an argument
+  //         // inside of the callback function
+  //         res.json(dbWlist);
+  //       });
+  //     });
+  //   }
 };
