@@ -1,4 +1,30 @@
 form.signup,
 form.login {
-  margin-top: 50px;
+    margin-top: 50px;
+}
+
+.navbar {
+    background-color: black;
+    color: white;
+}
+
+
+/* body {
+    background-image: url("./images/pixelHeartBG.jpg");
+    
+} */
+
+.tiledBackground {
+    background-image: url("./images/pixelHeartBG.jpg");
+    background-size: contain;
+}
+
+.opaqueContainer {
+    color: white;
+    background-color: #363c3a;
+    opacity: .95;
+}
+
+footer {
+    background-color: black;
 }
