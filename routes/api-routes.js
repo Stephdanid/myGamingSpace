@@ -75,9 +75,9 @@ module.exports = function(app) {
 
 
     app.get('/wishlist', function(req, res) {
-        db.Wlist.findAll({where: {UserId: req.user.id}},
-            {raw: true}).then(function(dbPost) {
-            console.table(dbPost);
+        db.Wlist.findAll({where: {UserId: req.user.id}, raw: true}
+            ).then(function(dbPost) {
+            // console.table(dbPost);
             res.render('members', {myGamesList: dbPost});
         });
     });
