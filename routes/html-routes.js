@@ -6,33 +6,33 @@
 const gameSearch = require('./oAuthServer.js');
 
 module.exports = function(app) {
-        app.get('/', (req, res) => {
-            // If the user already has an account send them to the members page
-            if (req.user) {
-                res.redirect('/members');
-            } else {
-                res.render('signup');
-            }
-            // res.sendFile(path.join(__dirname, '../public/signup.html'));
+    app.get('/', (req, res) => {
+        // If the user already has an account send them to the members page
+        if (req.user) {
+            res.redirect('/members');
+        } else {
+            res.render('signup');
+        }
+        // res.sendFile(path.join(__dirname, '../public/signup.html'));
+    });
+    app.get('/login', (req, res) => {
+        // If the user already has an account send them to the members page
+        if (req.user) {
+            res.redirect('/members');
+        } else {
+            res.render('login');
+        }
+    });
+    // res.sendFile(path.join(__dirname, '../public/login.html'));
+
+    // Here we've add our isAuthenticated middleware to this route.
+    // If a user who is not logged in tries to access
+    // this route they will be redirected to the signup page
+
+    app.get('/api/games/:game', (req, res) => {
+        gameSearch(req.params.game).then((gameData) => {
+            console.log(gameData);
+            res.render('gameSearch', { searchedGamesData: gameData });
         });
-        app.get('/login', (req, res) => {
-                // If the user already has an account send them to the members page
-                if (req.user) {
-                    res.redirect('/members');
-                } else {
-                    res.render('login');
-                }
-            };
-            // res.sendFile(path.join(__dirname, '../public/login.html'));
-
-            // Here we've add our isAuthenticated middleware to this route.
-            // If a user who is not logged in tries to access
-            // this route they will be redirected to the signup page
-
-            app.get('/api/games/:game', (req, res) => {
-                gameSearch(req.params.game).then((gameData) => {
-                    console.log(gameData);
-                    res.render('gameSearch', { searchedGamesData: gameData });
-                });
-            });
-        };
+    });
+};

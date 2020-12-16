@@ -51,83 +51,79 @@ module.exports = function(app) {
                             email: req.user.email,
                             id: req.user.id,
                         });
+                    };
+
+                    // Route for signing up a user. The user's password is
+                    // automatically hashed and stored securely thanks to
+                    // how we configured our Sequelize User Model.
+                    // If the user is created successfully, proceed to log the user in,
+                    // otherwise send back an error
+                    app.post('/api/signup', (req, res) => {
+                        db.User.create({
+                                email: req.body.email,
+                                password: req.body.password,
+                            })
+                            .then(() => {
+                                res.redirect(307, '/api/login');
+                            })
+                            .catch((err) => {
+                                res.status(401).json(err);
+                            });
                     });
 
-                // Route for signing up a user. The user's password is
-                // automatically hashed and stored securely thanks to
-                // how we configured our Sequelize User Model.
-                // If the user is created successfully, proceed to log the user in,
-                // otherwise send back an error
-                app.post('/api/signup', (req, res) => {
-                    db.User.create({
-                            email: req.body.email,
-                            password: req.body.password,
-                        })
-                        .then(() => {
-                            res.redirect(307, '/api/login');
-                        })
-                        .catch((err) => {
-                            res.status(401).json(err);
-                        });
-                });
 
-                <<
-                << << < HEAD
-                // Route for logging user out
-                app.get('/logout', (req, res) => {
-                        req.logout();
-                        res.redirect('/'); ===
-                        === =
-                        app.post('/wishlist', function(req, res) {
-                                    console.log(req.body);
-                                    // create takes an argument of an object describing
-                                    // the item we want to
-                                    // insert into our table. In this case we just we pass
-                                    // in an object with a text
-                                    // and complete property (req.body)
-                                    db.Wlist.create({
-                                        name: req.body.name,
-                                        summary: req.body.summary,
-                                        id: req.body.id,
-                                        UserId: req.user.id,
-                                    }).then(function(dbWlist) {
-                                        // We have access to the new Wlist as an argument
-                                        // inside of the callback function
-                                        res.json(dbWlist); >>>
-                                        >>> > main
-                                    });
-
-                                    <<
-                                    << << < HEAD
-                                    // Route for getting some data about our user to be used client side
-                                    app.get('/api/user_data', (req, res) => {
-                                        if (!req.user) {
-                                            // The user is not logged in, send back an empty object
-                                            res.json({});
-                                        } else {
-                                            // Otherwise send back the user's email and id
-                                            // Sending back a password, even a hashed
-                                            // password, isn't a good idea
-                                            res.json({
-                                                email: req.user.email,
-                                                id: req.user.id,
+                    // Route for logging user out
+                    app.get('/logout', (req, res) => {
+                                req.logout();
+                                res.redirect('/');
+                                app.post('/wishlist', function(req, res) {
+                                            console.log(req.body);
+                                            // create takes an argument of an object describing
+                                            // the item we want to
+                                            // insert into our table. In this case we just we pass
+                                            // in an object with a text
+                                            // and complete property (req.body)
+                                            db.Wlist.create({
+                                                name: req.body.name,
+                                                summary: req.body.summary,
+                                                id: req.body.id,
+                                                UserId: req.user.id,
+                                            }).then(function(dbWlist) {
+                                                // We have access to the new Wlist as an argument
+                                                // inside of the callback function
+                                                res.json(dbWlist);
                                             });
-                                        }
-                                    });
-
-                                    app.get('/api/games/:game', (req, res) => {
-
-                                        gameSearch(req.params.game).then((gameData) => res.json(gameData));
-                                    });
 
 
-                                    app.get('/api/Wlist/', function(req, res) {
-                                        db.Wlist.findAll({}).then(function(dbPost) {
-                                            res.json(dbPost);
-                                        });
-                                    });
+                                            // Route for getting some data about our user to be used client side
+                                            app.get('/api/user_data', (req, res) => {
+                                                if (!req.user) {
+                                                    // The user is not logged in, send back an empty object
+                                                    res.json({});
+                                                } else {
+                                                    // Otherwise send back the user's email and id
+                                                    // Sending back a password, even a hashed
+                                                    // password, isn't a good idea
+                                                    res.json({
+                                                        email: req.user.email,
+                                                        id: req.user.id,
+                                                    });
+                                                }
+                                            });
 
-                                    app.post('/members', function(req, res) {
+                                            app.get('/api/games/:game', (req, res) => {
+
+                                                gameSearch(req.params.game).then((gameData) => res.json(gameData));
+                                            });
+
+
+                                            app.get('/api/Wlist/', function(req, res) {
+                                                db.Wlist.findAll({}).then(function(dbPost) {
+                                                    res.json(dbPost);
+                                                });
+                                            });
+
+                                            app.post('/members', function(req, res) {
                                                 console.log(req.body);
                                                 // create takes an argument of an object describing
                                                 // the item we want to
@@ -138,19 +134,17 @@ module.exports = function(app) {
                                                     text: req.body.text,
                                                     complete: req.body.complete,
                                                 }).then(function(dbWlist) {
-                                                        // We have access to the new Wlist as an argument
-                                                        // inside of the callback function
-                                                        res.json(dbWlist);
+                                                    // We have access to the new Wlist as an argument
+                                                    // inside of the callback function
+                                                    res.json(dbWlist);
 
 
-                                                    }; ===
-                                                    === =
+                                                });
+                                            })
 
-                                                    app.get('/wishlist', function(req, res) {
-                                                        db.Wlist.findAll({ where: { UserId: req.user.id } }, { raw: true }).then(function(dbPost) {
-                                                            console.table(dbPost);
-                                                            res.render('members', { myGamesList: dbPost });
-                                                        });
-                                                    });
-                                                }; >>>
-                                                >>> > main
+                                            app.get('/wishlist', function(req, res) {
+                                                db.Wlist.findAll({ where: { UserId: req.user.id } }, { raw: true }).then(function(dbPost) {
+                                                    console.table(dbPost);
+                                                    res.render('members', { myGamesList: dbPost });
+                                                });
+                                            })
