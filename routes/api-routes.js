@@ -20,9 +20,9 @@ module.exports = function(app) {
     // otherwise send back an error
     app.post('/api/signup', (req, res) => {
         db.User.create({
-                email: req.body.email,
-                password: req.body.password,
-            })
+            email: req.body.email,
+            password: req.body.password,
+        })
             .then(() => {
                 res.redirect(307, '/api/login');
             })
@@ -69,10 +69,12 @@ module.exports = function(app) {
         });
     });
     app.get('/wishlist', function(req, res) {
-
-        db.Wlist.findAll({ where: { UserId: req.user.id }, raw: true }, ).then(function(dbPost) {
+        db.Wlist.findAll({
+            where: {UserId: req.user.id},
+            raw: true,
+        }).then(function(dbPost) {
             // console.table(dbPost);
-            res.render('members', { myGamesList: dbPost });
+            res.render('members', {myGamesList: dbPost});
         });
     });
 };

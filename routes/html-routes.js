@@ -28,7 +28,7 @@ module.exports = function(app) {
     app.get('/api/games/:game', (req, res) => {
         gameSearch(req.params.game).then((gameData) => {
             console.log(gameData);
-            res.render('gameSearch', { searchedGamesData: gameData });
+            res.render('gameSearch', {searchedGamesData: gameData});
         });
     });
 };

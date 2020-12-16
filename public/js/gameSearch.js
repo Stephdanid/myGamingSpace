@@ -3,9 +3,9 @@ $('.btn').on('click', function() {
     const game = {
         summary: $(this).data('summary'),
         id: $(this).data('id'),
-        name: $(this).data('name')
+        name: $(this).data('name'),
     };
-    $.post('/wishlist', game, )
+    $.post('/wishlist', game )
         .then((data) => {
             console.log(data);
             // If there's an error, log the error
