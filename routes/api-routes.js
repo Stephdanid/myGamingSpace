@@ -2,13 +2,12 @@
 const db = require('../models');
 const passport = require('../config/passport');
 // const gameSearch = require('./oAuthServer.js');
-
 module.exports = function(app) {
     // Using the passport.authenticate middleware with our local strategy.
     // If the user has valid login credentials, send them to the members page.
     // Otherwise the user will be sent an error
     app.post('/api/login', passport.authenticate('local'), (req, res) => {
-    // Sending back a password, even a hashed password, isn't a good idea
+        // Sending back a password, even a hashed password, isn't a good idea
         res.json({
             email: req.user.email,
             id: req.user.id,
@@ -31,13 +30,11 @@ module.exports = function(app) {
                 res.status(401).json(err);
             });
     });
-
     // Route for logging user out
     app.get('/logout', (req, res) => {
         req.logout();
         res.redirect('/');
     });
-
     // Route for getting some data about our user to be used client side
     app.get('/api/user_data', (req, res) => {
         if (!req.user) {
@@ -53,7 +50,6 @@ module.exports = function(app) {
             });
         }
     });
-
     app.post('/wishlist', function(req, res) {
         console.log(req.body);
         // create takes an argument of an object describing
@@ -72,14 +68,13 @@ module.exports = function(app) {
             res.json(dbWlist);
         });
     });
-
-
     app.get('/wishlist', function(req, res) {
-        db.Wlist.findAll({where: {UserId: req.user.id}, raw: true},
-        ).then(function(dbPost) {
+        db.Wlist.findAll({
+            where: {UserId: req.user.id},
+            raw: true,
+        }).then(function(dbPost) {
             // console.table(dbPost);
             res.render('members', {myGamesList: dbPost});
         });
     });
 };
-

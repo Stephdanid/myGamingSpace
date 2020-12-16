@@ -23,6 +23,7 @@ async function postData(
     return response.json();
     // parses JSON response into native JavaScript objects
 }
+
 function gameSearch(bodyParamSearch) {
     // console.log('test')
     return postData(process.env.GET_TOKEN, {
@@ -30,22 +31,21 @@ function gameSearch(bodyParamSearch) {
         client_secret: process.env.CLIENT_SECRET_TWITCH,
         grant_type: `client_credentials`,
     }).then((data) => {
-    // console.log(data); // JSON data parsed by `data.json()` call
+        // console.log(data); // JSON data parsed by `data.json()` call
         bodyParamSearch = `"${bodyParamSearch}"`;
         return postData(
             `https://api.igdb.com/v4/games`,
-            'fields *; search ' + bodyParamSearch + '; limit 10;',
-            {
+            'fields *; search ' + bodyParamSearch + '; limit 10;', {
                 'Client-ID': process.env.CLIENT_ID_TWITCH,
                 'Authorization': `Bearer ` + data.access_token,
             },
             'text/plain',
         );
-    // The example below searches for “Sonic the Hedgehog” which
-    // will find the Character Sonic,
-    // the collection Sonic the Hedgehog. And of course
-    // also several games with names containing Sonic the Hedgehog.
-    // "fields *; search "sonic the hedgehog"; limit 50;"
+        // The example below searches for “Sonic the Hedgehog” which
+        // will find the Character Sonic,
+        // the collection Sonic the Hedgehog. And of course
+        // also several games with names containing Sonic the Hedgehog.
+        // "fields *; search "sonic the hedgehog"; limit 50;"
     });
     // .then(gameData => {
     //     const [gameObject] = gameData
